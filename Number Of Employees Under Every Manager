@@ -1,0 +1,76 @@
+https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/hashmap-and-heaps/number-of-employees-under-every-manager-official/ojquestion
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    
+
+  public static void main(String[] args){
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    String employee[][] = new String[n][2];
+    
+    for(int i=0;i<n;i++){
+        String e = sc.next();
+        String m = sc.next();
+        employee[i][0] = e;
+        employee[i][1] = m;
+    }
+    
+    
+    findCount(employee);
+    
+    
+    
+    
+  }
+  
+  public static void findCount(String[][] employee){
+      
+      HashMap<String, HashSet<String>> hmap = new HashMap<>();
+      String CEO ="";
+      for(int i=0;i<employee.length;i++){
+          String m = employee[i][1];
+          String e = employee[i][0];
+          if(e.equals(m)){
+              CEO = e;
+              continue;
+          }
+          HashSet<String> str = new HashSet<>();
+          hmap.putIfAbsent(m,str);
+          hmap.get(m).add(e);
+      }
+      
+      HashMap<String,Integer> answer= new HashMap<>();
+      get_size(hmap,CEO,answer);
+      
+      for(String s:answer.keySet()){
+          System.out.println(s+" "+answer.get(s));
+      }
+      
+  }
+  
+  
+  public static int get_size(HashMap<String,HashSet<String>> hmap,String CEO,HashMap<String,Integer> answer){
+      
+      if(hmap.containsKey(CEO)==false){
+          
+          answer.put(CEO,0);
+          return 1;
+      }
+      
+      int size =0;
+      for(String ele:hmap.get(CEO)){
+          size += get_size(hmap,ele,answer);
+      }
+      answer.put(CEO,size);
+      return size+1;
+      
+      
+      
+  }
+  
+ 
+
+}
