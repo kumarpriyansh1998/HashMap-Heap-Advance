@@ -1,0 +1,64 @@
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int noofpairs_src_des = scn.nextInt();
+		HashMap<String, String> map = new HashMap<>();
+		for (int i = 0; i < noofpairs_src_des; i++) {
+			String s1 = scn.next();
+			String s2 = scn.next();
+			map.put(s1, s2);	
+		}
+
+		//write your code here
+		
+		HashMap<String,Boolean> hmap = new HashMap<>();
+		for(String ele:map.keySet()){
+		    
+		    if(hmap.containsKey(ele) && hmap.get(ele)==false){
+		        hmap.put(map.get(ele),false);
+		    }
+		    else{
+		        hmap.put(ele,true);
+		        hmap.put(map.get(ele),false);
+		    }
+		}
+		
+		String source ="";
+		for(String ele:hmap.keySet()){
+		    
+		    if(hmap.get(ele)==true){
+		        source = ele;
+		    }
+		}
+		
+		
+		ArrayList<String> answer = new ArrayList<>();
+		get_itenary(answer,map,source);
+		System.out.print(source);
+		for(int i=1;i<answer.size();i++){
+		    System.out.print(" -> "+answer.get(i));
+		}
+		System.out.println(".");
+		
+		
+		
+		
+
+
+	}
+	
+	
+	public static void get_itenary(ArrayList<String> answer,HashMap<String,String> map,String source){
+	    
+	    if(map.containsKey(source)==false){
+	        answer.add(source);
+	        return;
+	    }
+	    
+	    answer.add(source);
+	    get_itenary(answer,map,map.get(source));
+	    
+	}
+}
