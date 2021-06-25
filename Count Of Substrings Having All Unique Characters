@@ -1,0 +1,60 @@
+https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/hashmap-and-heaps/count-of-substrings-having-all-unique-characters-official/ojquestion
+
+import java.util.*;
+
+public class Main {
+
+	public static int solution(String str) {
+		// write your code here
+		
+		HashMap<Character,Integer> hmap = new HashMap<>();
+		
+		
+		int sum =0;
+		int i=-1,j=-1;
+		int n = str.length();
+		while(true){
+		    boolean b1 = false;
+		    boolean b2 = false;
+		    while(i<n-1){
+		        b1 = true;
+		        i++;
+		        char ch = str.charAt(i);
+		        hmap.put(ch,(hmap.getOrDefault(ch,0))+1);
+		        if(hmap.get(ch)==2) break;
+		        else sum+=(i-j);
+		        
+		    }
+		    
+		    while(j<i){
+		        j++;
+		        b2 = true;
+		        char ch = str.charAt(j);
+		        int freq = hmap.get(ch);
+		        hmap.put(ch,freq-1);
+		      
+		        if(freq ==2) {
+		            sum+=(i-j);
+		            break;
+		        }
+		    }
+		    
+		    
+		    if(b1==false && b2==false ) break;
+		    
+		}
+		
+		return sum;
+		
+		
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		String str = scn.next();
+		System.out.println(solution(str));
+	}
+
+}
