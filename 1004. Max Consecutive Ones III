@@ -1,0 +1,41 @@
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        
+        HashMap<Integer,Integer> hmap = new HashMap<>();
+        int i=-1,j=-1;
+        int zero = 0;
+        int max  = 0;
+        int n = nums.length;
+        while(true){
+            boolean b1 = false;
+            boolean b2 = false;
+            while(i<n-1){
+                b1 = true;
+                i++;
+                int val = nums[i];
+                hmap.put(val,(hmap.getOrDefault(val,0))+1);
+                
+                if(hmap.getOrDefault(0,0)>k) break;
+                else max = Math.max(max,i-j);
+            }
+            
+            while(j<i){
+                b2 = true;
+                j++;
+                int val = nums[j];
+                int freq = hmap.get(val);
+                hmap.put(val,freq-1);
+                if(hmap.get(0)==k) {
+                    max = Math.max(max,i-j);
+                    break;
+                }
+            }
+            
+            if(!b1&&!b2) break;
+            
+        }
+        
+        return max;
+        
+    }
+}
