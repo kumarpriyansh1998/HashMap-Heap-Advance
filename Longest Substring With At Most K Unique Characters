@@ -1,0 +1,61 @@
+import java.util.*;
+
+public class Main {
+
+	public static int solution(String str, int k) {
+		// write your code here
+		HashMap<Character,Integer> hmap = new HashMap<>();
+		int i=-1,j=-1;
+		int n = str.length();
+		int max =0;
+		while(true){
+		    boolean a1= false;
+		    boolean a2 = false;
+		    
+		    while(i<n-1){
+		        a2 = true;
+		        i++;
+		        char ch = str.charAt(i);
+		        hmap.put(ch,(hmap.getOrDefault(ch,0))+1);
+		        if(hmap.size()<=k){
+		            max = Math.max(max,i-j);
+		        }
+		        else break;
+		        
+		    }
+		    
+		    while(j<i){
+		        a1 = true;
+		        j++;
+		        char ch = str.charAt(j);
+		        int freq = hmap.get(ch);
+		        if(freq==1) hmap.remove(ch);
+		        else {
+		            hmap.put(ch,freq-1);
+		        }
+		        
+		        
+		        if(hmap.size()==k){
+		            max = Math.max(max,i-j);
+		            break;
+		        }
+		        
+		        
+		    }
+		    
+		    if(!a1&&!a2) break;
+		    
+		    
+		}
+		
+		return max;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+        String str = scn.next();
+        int k = scn.nextInt();
+		System.out.println(solution(str,k));
+	}
+
+}
