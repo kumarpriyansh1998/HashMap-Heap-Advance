@@ -1,0 +1,32 @@
+https://www.lintcode.com/problem/813/
+public class Solution {
+    /**
+     * @param A: lists A
+     * @param B: lists B
+     * @return: the index mapping
+     */
+    public int[] anagramMappings(int[] A, int[] B) {
+        // Write your code here
+
+        HashMap<Integer,ArrayList<Integer>> hmap = new HashMap<>();
+        for(int i=0;i<B.length;i++){
+            int num = B[i];
+            ArrayList<Integer> list = new ArrayList<>();
+            hmap.putIfAbsent(num,list);
+            hmap.get(num).add(i);
+        }
+
+        int answer[] = new int[A.length];
+        int ind =0;
+        for(int i=0;i<A.length;i++){
+            answer[ind] = hmap.get(A[i]).get(0);
+            ind++;
+            hmap.get(A[i]).remove(0);
+        }
+
+        return answer;
+
+    }
+
+
+}
