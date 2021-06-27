@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length()!=t.length()) return false;
+        HashMap<Character,Integer> hmap = new HashMap<>();
+        int n = s.length();
+        for(int i=0;i<n;i++){
+            char ch = s.charAt(i);
+            hmap.put(ch,hmap.getOrDefault(ch,0)+1);
+        }
+        
+        
+        for(int  i=0;i<n;i++){
+            char ch = t.charAt(i);
+            int freq = hmap.getOrDefault(ch,0);
+            hmap.put(ch,freq-1);
+            if(freq==1) hmap.remove(ch);
+        }
+        
+        return hmap.size()==0;
+        
+        
+        
+    }
+}
