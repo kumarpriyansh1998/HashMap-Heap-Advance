@@ -1,0 +1,21 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        
+        HashMap<Integer,Integer> freq = new HashMap<>();
+        freq.put(0,1);
+        int pre_sum = 0;
+        int n = nums.length;
+        int count =0;
+        for(int i=0;i<n;i++){
+            pre_sum+=nums[i];
+            if(freq.containsKey(pre_sum-k)){
+                count+=freq.get(pre_sum-k);
+            }
+            freq.put(pre_sum,(freq.getOrDefault(pre_sum,0))+1);
+        }
+        
+        return count;
+        
+        
+    }
+}
