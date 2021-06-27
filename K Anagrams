@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class Main {
+	public static boolean areKAnagrams(String str1, String str2, int k) {
+		// write your code here
+		if(str1.length()!=str2.length()) return false;
+		HashMap<Character,Integer> hmap = new HashMap<>();
+		for(int i=0;i<str1.length();i++){
+		    char ch = str1.charAt(i);
+		    hmap.put(ch,hmap.getOrDefault(ch,0)+1);
+		}
+		
+		
+		
+		for(int i=0;i<str2.length();i++){
+		    char ch = str2.charAt(i);
+		    if(hmap.containsKey(ch)){
+		        int freq = hmap.get(ch);
+		        hmap.put(ch,freq-1);
+		        if(freq==1) hmap.remove(ch);
+		        
+		        
+		        
+		    }
+		}
+		
+		
+		int count =0;
+		for(Character ele:hmap.keySet()){
+		    if(hmap.get(ele)>0) count+=hmap.get(ele);
+		}
+		
+		if(count<=k) return true;
+
+		return false;
+	}
+
+	public static void main(String[] args) {
+
+		Scanner s = new Scanner(System.in);
+		String str1 = s.next();
+		String str2 = s.next();
+		int k = s.nextInt();
+		System.out.println(areKAnagrams(str1, str2, k));
+
+	}
+
+}
