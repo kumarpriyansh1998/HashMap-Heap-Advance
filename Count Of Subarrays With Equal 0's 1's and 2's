@@ -1,0 +1,36 @@
+https://practice.geeksforgeeks.org/problems/equal-0-1-and-23208/1
+class Solution 
+{ 
+    long getSubstringWithEqual012(String str) 
+    { 
+        // code here
+        
+        
+        HashMap<String,Integer> hmap = new HashMap<>();
+        hmap.put("0#0",1);
+        int c0 =0;
+        int c1 =0;
+        int c2 = 0;
+        int count = 0;
+        for(int i=0;i<str.length();i++){
+            
+            
+            char ch = str.charAt(i);
+            if(ch=='0') c0++;
+            if(ch=='1') c1++;
+            if(ch=='2') c2++;
+            
+            String key = (c1-c0)+"#"+(c2-c1);
+            if(hmap.containsKey(key)){
+                count+=hmap.get(key);
+                hmap.put(key,hmap.get(key)+1);
+            }
+            else hmap.put(key,1);
+            
+        }
+        
+        return count;
+        
+        
+    }
+} 
