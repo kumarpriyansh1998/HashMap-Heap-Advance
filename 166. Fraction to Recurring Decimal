@@ -1,0 +1,56 @@
+class Solution {
+    public String fractionToDecimal(int nu, int de) {
+        
+        StringBuilder s = new StringBuilder();
+		boolean nn = false;
+		boolean dn =false;
+		if(nu<0) nn = true;
+		if(de<0) dn = true;
+		long n = Math.abs((long)nu);
+        long d = Math.abs((long)de);
+		if(n==0){
+            return "0";
+        }
+		//If completly divisible 
+		
+		s.append(n/d);
+		if(n%d==0) {
+			return func(s,nn,dn);
+		}
+		
+        
+//         if not completely divisible
+		s.append(".");
+		HashMap<Long,Integer> hmap = new HashMap<>();
+		long r = n%d;
+		while(r!=0) {
+			if(hmap.containsKey(r)) {
+				int pos = hmap.get(r);
+				s.insert(pos, "(");
+				s.append(")");
+				return func(s,nn,dn);
+			}else {
+				
+				hmap.put(r, s.length());
+				r*=10;
+				s.append(r/d);
+				r = r%d;
+				
+			}
+			
+		}
+        
+        return func(s,nn,dn);
+	
+        
+    }
+    
+    public String func(StringBuilder s, boolean nn,boolean dn){
+        
+        if((nn==true && dn==true) || (nn==false && dn==false)) return s.toString();
+        else s.insert(0,"-");
+        return s.toString();
+            
+        
+    } 
+}
