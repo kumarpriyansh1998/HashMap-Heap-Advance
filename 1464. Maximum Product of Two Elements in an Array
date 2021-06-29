@@ -1,0 +1,35 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        for(int i=0;i<nums.length;i++){
+            // System.out.println(pq);
+            if(pq.size()<2) pq.add(nums[i]);
+            else{
+                int top = pq.peek();
+                if(nums[i]>top){
+                    pq.remove();
+                    pq.add(nums[i]);
+                }
+            }
+            
+            
+        }
+        
+        
+        System.out.println(pq);
+        return (pq.remove()-1)*(pq.remove()-1);
+        
+        
+        
+
+        
+        
+//         Arrays.sort(nums);
+//         int n = nums.length;
+//         return (nums[n-1]-1)*(nums[n-2]-1);
+        
+    }
+        
+}
