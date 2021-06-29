@@ -1,0 +1,56 @@
+class Solution {
+    
+    
+    public class node{
+        int ones;
+        int zeros;
+        int ind;
+        node(int ones,int zeors,int ind){
+            this.ones = ones;
+            this.zeros = zeros;
+            this.ind = ind;
+        }
+    }
+    
+    
+    public int[] kWeakestRows(int[][] mat, int k) {
+        
+        PriorityQueue<node> pq = new PriorityQueue<>((a,b)->{
+            if(a.ones==b.ones) return a.ind-b.ind;
+            return a.ones-b.ones;
+        });
+        
+        int row = mat.length;
+        int col = mat[0].length;
+        
+            
+        for(int i=0;i<row;i++){
+            int ones =0;
+            int zeros =0;
+            int ind =i;
+            for(int j=0;j<col;j++){
+                
+                int num = mat[i][j];
+                if(num==0){
+                    zeros++;
+                }else{
+                    ones++;
+                }
+                
+            }
+            node new_node = new node(ones,zeros,ind);
+                pq.add(new_node);
+        }
+        
+        
+        
+        int answer[] = new int[k];
+        for(int i=0;i<k;i++){
+            answer[i] =pq.remove().ind;
+        }
+        
+        return answer;
+        
+    
+    }
+}
