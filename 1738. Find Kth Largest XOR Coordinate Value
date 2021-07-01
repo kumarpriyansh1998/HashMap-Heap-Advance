@@ -1,0 +1,43 @@
+class Solution {
+    public int kthLargestValue(int[][] matrix, int k) {
+        
+        int r = matrix.length;
+        int c = matrix[0].length;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        pq.add(matrix[0][0]);
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(i==0 && j==0) continue;
+                else if(j==0) matrix[i][j] = matrix[i-1][j]^matrix[i][j];
+                else if(i==0) matrix[i][j] = matrix[i][j-1]^matrix[i][j];        
+                else matrix[i][j] = matrix[i-1][j]^matrix[i][j-1]^matrix[i-1][j-1]^matrix[i][j];
+                
+                
+                
+                
+                if(pq.size()<k) pq.add(matrix[i][j]);
+                else{
+                    
+                    int top = pq.peek();
+                    if(matrix[i][j]>top){
+                        pq.remove();
+                        pq.add(matrix[i][j]);
+                    }
+                    
+                    
+                    
+                }
+                
+        
+            }
+        }
+        
+        
+        
+        return pq.remove();
+        
+        
+        
+        
+    }
+}
